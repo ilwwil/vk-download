@@ -56,6 +56,8 @@ dependencies {
 
     // WorkManager (фоновые задачи)
     implementation("androidx.work:work-runtime-ktx:2.9.1")
+
+    implementation(libs.androidx.navigation.compose)
     //
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

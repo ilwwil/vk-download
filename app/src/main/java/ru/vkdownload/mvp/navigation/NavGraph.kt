@@ -54,7 +54,10 @@ fun NavGraph() {
             val appId = backStackEntry.arguments?.getString("appId")
             val app: App = fakeApps.first { it.id == appId }
 
-            AppDetailsScreen(app = app)
+            AppDetailsScreen(
+                app = app,
+                onBackClick = { navController.popBackStack() }
+            )
         }
     }
 }

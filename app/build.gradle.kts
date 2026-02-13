@@ -33,6 +33,10 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        // debug только, чтобы не падало
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
 }
 
 dependencies {
@@ -69,7 +73,11 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
 
     implementation(libs.androidx.material.icons.extended)
-    
+
+    // Accompanist Pager
+    implementation("com.google.accompanist:accompanist-pager:0.30.1")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.30.1")
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

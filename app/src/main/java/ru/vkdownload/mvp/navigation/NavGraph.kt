@@ -12,6 +12,7 @@ import ru.vkdownload.mvp.ui.catalog.fakeApps
 import ru.vkdownload.mvp.ui.appdetails.AppDetailsScreen
 import ru.vkdownload.mvp.ui.onboarding.OnboardingScreen
 import ru.vkdownload.mvp.ui.categories.CategoriesScreen
+import ru.vkdownload.mvp.ui.screenshots.ScreenshotsScreen
 
 
 @Composable
@@ -111,6 +112,27 @@ fun NavGraph() {
 
             AppDetailsScreen(
                 app = app,
+                navController = navController,
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(
+            route = "screenshots/{appId}/{startIndex}",
+            arguments = listOf(
+                navArgument("appId") { type = NavType.StringType },
+                navArgument("startIndex") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val appId = backStackEntry.arguments?.getString("appId") ?: return@composable
+            val startIndex = backStackEntry.arguments?.getInt("startIndex") ?: 0
+            val app = fakeApps.first { it.id == appId }
+
+            ScreenshotsScreen(
+                screenshots = app.screenshots,
+                startIndex = startIndex,
                 onBackClick = { navController.popBackStack() }
             )
         }

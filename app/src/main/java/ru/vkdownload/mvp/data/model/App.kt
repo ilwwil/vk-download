@@ -4,5 +4,6 @@ data class App(
     val id: String,
     val name: String,
     val shortDescription: String,
-    val category: String
+    val category: String,
+    val screenshots: List<Int>
 )

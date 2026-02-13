@@ -11,10 +11,18 @@ import ru.vkdownload.mvp.ui.catalog.CatalogScreen
 import ru.vkdownload.mvp.ui.catalog.fakeApps
 import ru.vkdownload.mvp.ui.appdetails.AppDetailsScreen
 import ru.vkdownload.mvp.ui.onboarding.OnboardingScreen
+import ru.vkdownload.mvp.ui.categories.CategoriesScreen
+
 
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
+
+    val categories = fakeApps
+        .groupBy { it.category }
+        .map { (category, apps) ->
+            category to apps.size
+        }
 
     NavHost(
         navController = navController,
@@ -32,15 +40,62 @@ fun NavGraph() {
             )
         }
 
-        // Каталог
+        // Каталог без фильтра
         composable("catalog") {
+
             CatalogScreen(
                 apps = fakeApps,
-                onAppClick = { appId: String ->
+                onAppClick = { appId ->
                     navController.navigate("details/$appId")
+                },
+                onCategoriesClick = {
+                    navController.navigate("categories")
+                },
+                currentCategory = null
+            )
+        }
+
+        // Каталог с категорией
+        composable(
+            route = "catalog/{category}",
+            arguments = listOf(
+                navArgument("category") {
+                    type = NavType.StringType
+                }
+            )
+        ) { backStackEntry ->
+
+            val category = backStackEntry.arguments?.getString("category")
+
+            val filteredApps = fakeApps.filter {
+                it.category == category
+            }
+
+            CatalogScreen(
+                apps = filteredApps,
+                onAppClick = { appId ->
+                    navController.navigate("details/$appId")
+                },
+                onCategoriesClick = {
+                    navController.navigate("categories")
+                },
+                currentCategory = category
+            )
+        }
+
+        // Категории
+        composable("categories") {
+            CategoriesScreen(
+                categories = categories,
+                onCategoryClick = { selectedCategory: String ->
+                    navController.navigate("catalog/$selectedCategory") {
+                        popUpTo("catalog")
+                        launchSingleTop = true
+                    }
                 }
             )
         }
+
 
         // Детали приложения
         composable(

@@ -22,8 +22,14 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
+    ),
+    titleMedium = TextStyle(
+        fontFamily = VkSans,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.sp
+    ),
     titleLarge = TextStyle(
         fontFamily = VkSans,
         fontWeight = FontWeight.Bold,
@@ -35,8 +41,7 @@ val Typography = Typography(
         fontFamily = VkSans,
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
-        lineHeight = 16.sp,
+        lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     )
-    */
 )

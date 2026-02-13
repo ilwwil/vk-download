@@ -14,12 +14,18 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CategoriesScreen(
     categories: List<Pair<String, Int>>,
-    onCategoryClick: (String) -> Unit
+    onCategoryClick: (String) -> Unit,
+    onClearCategory: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Категории") }
+                title = { Text("Категории") },
+                actions = {
+                    Button(onClick = onClearCategory) {
+                        Text("Очистить")
+                    }
+                }
             )
         }
     ) { padding ->

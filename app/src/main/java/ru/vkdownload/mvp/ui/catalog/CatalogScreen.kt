@@ -20,7 +20,8 @@ fun CatalogScreen(
     apps: List<App>,
     onAppClick: (String) -> Unit,
     onCategoriesClick: () -> Unit,
-    currentCategory: String?
+    currentCategory: String?,
+    onClearCategory: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -34,13 +35,25 @@ fun CatalogScreen(
         }
 
         if (currentCategory != null) {
-            Text(
-                text = "Текущая категория: $currentCategory",
-                modifier = Modifier.padding(horizontal = 16.dp),
-                style = MaterialTheme.typography.titleMedium
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Текущая категория: $currentCategory",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "Очистить",
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.clickable { onClearCategory() }
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
         }
+
 
         LazyColumn(
             modifier = Modifier.fillMaxSize(),

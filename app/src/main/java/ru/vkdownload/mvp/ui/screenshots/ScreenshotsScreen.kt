@@ -20,7 +20,6 @@ fun ScreenshotsScreen(
     startIndex: Int = 0,
     onBackClick: () -> Unit
 ) {
-    // Используем стандартный PagerState
     val pagerState = rememberPagerState(
         initialPage = startIndex,
         pageCount = { screenshots.size }
@@ -43,7 +42,7 @@ fun ScreenshotsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
-            pageSpacing = 16.dp // Добавим немного пространства между страницами
+            pageSpacing = 16.dp
         ) { page ->
             Box(
                 modifier = Modifier

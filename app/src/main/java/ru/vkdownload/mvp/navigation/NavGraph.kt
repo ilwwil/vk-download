@@ -1,6 +1,10 @@
 package ru.vkdownload.mvp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,12 +29,12 @@ fun NavGraph() {
             category to apps.size
         }
 
+    var selectedCategory by remember { mutableStateOf<String?>(null) }
+
     NavHost(
         navController = navController,
         startDestination = "onboarding"
     ) {
-
-        // Онбординг
         composable("onboarding") {
             OnboardingScreen(
                 onContinue = {
@@ -41,9 +45,9 @@ fun NavGraph() {
             )
         }
 
-        // Каталог без фильтра
-        composable("catalog") {
-
+        composable(
+            route = "catalog",
+        ) {
             CatalogScreen(
                 apps = fakeApps,
                 onAppClick = { appId ->
@@ -52,25 +56,19 @@ fun NavGraph() {
                 onCategoriesClick = {
                     navController.navigate("categories")
                 },
-                currentCategory = null
+                currentCategory = null,
+                onClearCategory = { }
             )
         }
 
-        // Каталог с категорией
         composable(
             route = "catalog/{category}",
             arguments = listOf(
-                navArgument("category") {
-                    type = NavType.StringType
-                }
+                navArgument("category") { type = NavType.StringType }
             )
         ) { backStackEntry ->
-
             val category = backStackEntry.arguments?.getString("category")
-
-            val filteredApps = fakeApps.filter {
-                it.category == category
-            }
+            val filteredApps = fakeApps.filter { it.category == category }
 
             CatalogScreen(
                 apps = filteredApps,
@@ -80,25 +78,33 @@ fun NavGraph() {
                 onCategoriesClick = {
                     navController.navigate("categories")
                 },
-                currentCategory = category
+                currentCategory = category,
+                onClearCategory = {
+                    navController.navigate("catalog") {
+                        popUpTo("catalog") { inclusive = true }
+                    }
+                }
             )
         }
 
-        // Категории
         composable("categories") {
             CategoriesScreen(
                 categories = categories,
-                onCategoryClick = { selectedCategory: String ->
-                    navController.navigate("catalog/$selectedCategory") {
+                onCategoryClick = { category ->
+                    navController.navigate("catalog/$category") {
                         popUpTo("catalog")
+                        launchSingleTop = true
+                    }
+                },
+                onClearCategory = {
+                    navController.navigate("catalog") {
+                        popUpTo("catalog") { inclusive = true }
                         launchSingleTop = true
                     }
                 }
             )
         }
 
-
-        // Детали приложения
         composable(
             route = "details/{appId}",
             arguments = listOf(

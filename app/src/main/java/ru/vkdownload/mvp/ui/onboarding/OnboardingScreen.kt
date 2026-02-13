@@ -26,7 +26,6 @@ fun OnboardingScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Логотип
         Image(
             painter = painterResource(id = R.drawable.vk_download_logo),
             contentDescription = "VK Download Logo",
@@ -36,14 +35,12 @@ fun OnboardingScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Приветственный текст
         Text(
             text = "Добро пожаловать в VK Download"
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Кнопка перехода в каталог
         Button(onClick = onContinue) {
             Text(text = "Перейти к приложениям")
         }

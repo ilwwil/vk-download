@@ -23,7 +23,11 @@ fun CatalogScreen(
     currentCategory: String?,
     onClearCategory: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding() // Добавляет отступ сверху, равный высоте статус-бара
+    ) {
 
         Button(
             onClick = onCategoriesClick,
@@ -83,4 +87,3 @@ fun CatalogScreen(
         }
     }
 }
-

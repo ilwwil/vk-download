@@ -34,7 +34,6 @@ android {
         compose = true
     }
     composeOptions {
-        // debug только, чтобы не падало
         kotlinCompilerExtensionVersion = "1.5.1"
     }
 }

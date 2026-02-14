@@ -1,10 +1,6 @@
 package ru.vkdownload.mvp.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,8 +24,6 @@ fun NavGraph() {
         .map { (category, apps) ->
             category to apps.size
         }
-
-    var selectedCategory by remember { mutableStateOf<String?>(null) }
 
     NavHost(
         navController = navController,

@@ -7,7 +7,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ru.vkdownload.mvp.ui.theme.VKdownloadTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,5 +51,17 @@ fun CategoriesScreen(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun CategoriesScreenPreview() {
+    VKdownloadTheme {
+        CategoriesScreen(
+            categories = listOf("Tools" to 10, "Games" to 5),
+            onCategoryClick = {},
+            onClearCategory = {}
+        )
     }
 }
